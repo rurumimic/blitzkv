@@ -45,7 +45,6 @@ func (h *Handler) GetValue(c *gin.Context) {
 		"key":   key,
 		"value": value,
 	})
-
 }
 
 func (h *Handler) SetValue(c *gin.Context) {
@@ -92,4 +91,17 @@ func (h *Handler) DeleteValue(c *gin.Context) {
 		"key":     key,
 	})
 
+}
+
+func (h *Handler) ListKeys(c *gin.Context) {
+	keys, err := h.store.List()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to list keys",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"keys": keys,
+	})
 }

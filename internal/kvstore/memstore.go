@@ -31,3 +31,11 @@ func (m *MemStore) Delete(key string) error {
 	delete(m.store, key)
 	return nil
 }
+
+func (m *MemStore) List() ([]string, error) {
+	keys := make([]string, 0, len(m.store))
+	for key := range m.store {
+		keys = append(keys, key)
+	}
+	return keys, nil
+}

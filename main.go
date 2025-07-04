@@ -25,6 +25,7 @@ func main() {
 	r.GET("/store", storeHandler.GetValue)
 	r.POST("/store", storeHandler.SetValue)
 	r.DELETE("/store", storeHandler.DeleteValue)
+	r.GET("/store/keys", storeHandler.ListKeys)
 
 	r.Run()
 }
