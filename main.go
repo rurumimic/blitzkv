@@ -2,13 +2,21 @@ package main
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rurumimic/blitzkv/internal/handler"
 	"github.com/rurumimic/blitzkv/internal/kvstore"
+	"github.com/rurumimic/blitzkv/pkg/config"
 )
 
 func main() {
+	conf, err := config.Load()
+	if err != nil {
+		panic("Failed to load configuration: " + err.Error())
+	}
+	config.Display(conf)
+
 	store := kvstore.NewMemStore()
 	store.Set("hello", "world")
 
@@ -27,5 +35,5 @@ func main() {
 	r.DELETE("/store", storeHandler.DeleteValue)
 	r.GET("/store/keys", storeHandler.ListKeys)
 
-	r.Run()
+	r.Run(":" + strconv.Itoa(conf.Server.Port))
 }

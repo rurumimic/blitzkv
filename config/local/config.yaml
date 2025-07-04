@@ -1,0 +1,13 @@
+app:
+  name: blitzkv
+  version: 0.1.0
+  env: local
+  debug: true
+server:
+  port: 3000
+store:
+  max_keys: 7
+  max_value_size: 512
+log:
+  level: debug
+
